@@ -16,13 +16,12 @@ import java.io.IOException;
 @Configuration
 class MyWebMvcConfigurer implements WebMvcConfigurer {
 
-    //comment out this?
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**")
-                .addResourceLocations("file:src/main/resources/static/")
+                .addResourceLocations("file:src/main/resources/static")
                 .setCacheControl(CacheControl.noCache())
-                .resourceChain(false)
+                .resourceChain(true)
                 .addResolver(new PathResourceResolver() {
                     @Override
                     protected Resource getResource(String resourcePath,
@@ -38,7 +37,7 @@ class MyWebMvcConfigurer implements WebMvcConfigurer {
     public DataSource dataSource() {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName("org.sqlite.JDBC");
-        dataSourceBuilder.url("jdbc:pokedex.db");
+        dataSourceBuilder.url("jdbc:sqlite:pokedex.db");
         return dataSourceBuilder.build();
     }
 }
