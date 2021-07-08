@@ -44,6 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     //.antMatchers("/api/v1/**").authenticated()
                     .antMatchers(HttpMethod.GET, "/admin").authenticated()
                     .antMatchers(HttpMethod.GET, "/").permitAll()
+                    .antMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
+                    //.antMatchers(HttpMethod.GET, "/Pokedex/**").permitAll()
                 .and()
                 .httpBasic().authenticationEntryPoint(entryPoint)
                 .and()
