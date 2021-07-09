@@ -43,6 +43,10 @@ public class AccountService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No user roles entered");
         }
 
+        if(accountRepository.findByUsername(accountDTO.getUsername()).isPresent()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "user with that name already exists");
+        }
+
         var validRoles = roleService.findAllRolesAsStrings();
 
         for(String role: accountDTO.getRoles()) {

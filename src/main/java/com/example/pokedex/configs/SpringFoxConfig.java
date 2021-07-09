@@ -1,3 +1,4 @@
+/*
 package com.example.pokedex.configs;
 
 //import com.google.common.base.Predicate;
@@ -20,11 +21,12 @@ public class SpringFoxConfig {
                 .apis( RequestHandlerSelectors.basePackage( "com.example.pokedex" ) )
                 .paths(PathSelectors.any())
                 .build();
-        /*
-                        .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
-                .build();
-         */
+
+                        //.select()
+                //.apis(RequestHandlerSelectors.any())
+                //.paths(PathSelectors.any())
+                //.build();
+
     }
 }
+*/
