@@ -49,12 +49,13 @@ public class AccountController {
             @ApiResponse(responseCode = "404", description = "No user with such username", content = @Content)
     })
     @GetMapping
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<List<Account>> findAllAccounts(@RequestParam(required = false) String username) {
 
         return ResponseEntity.ok(accountService.findAll(username));
     }
 
-    @Operation(summary = "gets either a list of all accounts or a list of a single one with the specified username")
+    @Operation(summary = "gets a single user account by a given account ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User account successfully created", content = @Content),
             @ApiResponse(responseCode = "401", description = "The user attempting this operation is not authenticated", content = @Content),
@@ -62,7 +63,8 @@ public class AccountController {
             @ApiResponse(responseCode = "404", description = "No user with such username", content = @Content)
     })
     @GetMapping("/{id}")
-    public ResponseEntity<Account> getAccountById(@Parameter(name = "id",description = "account ID", example = "id=45") @PathVariable int id){
+    @Secured("ROLE_ADMIN")
+    public ResponseEntity<Account> getAccountById(@Parameter(name = "id",description = "account ID", example = "id=45", required = false) @PathVariable int id){
         return ResponseEntity.ok(accountService.findbyId(id));
     }
 
@@ -77,8 +79,9 @@ public class AccountController {
             @ApiResponse(responseCode = "400", description = "Failed to update user account, because of faulty request body data", content = @Content)
     })
     @PutMapping("/{id}")
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateAccount(@Parameter(name = "id",description = "account ID", example = "id=45") @PathVariable int id, @RequestBody AccountDTO accountDTO) {
+    public void updateAccount(@Parameter(name = "id",description = "account ID", example = "id=45", required = true) @PathVariable int id, @RequestBody AccountDTO accountDTO) {
         accountService.updateAccount(id, accountDTO);
 
     }
@@ -91,8 +94,9 @@ public class AccountController {
             @ApiResponse(responseCode = "404", description = "Failed to update user account, because of faulty request body data", content = @Content)
     })
     @DeleteMapping("/{id}")
+    @Secured("ROLE_ADMIN")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteAccount(@Parameter(name = "id",description = "account ID", example = "id=45") @PathVariable int id){
+    public void deleteAccount(@Parameter(name = "id",description = "account ID", example = "id=45", required = true) @PathVariable int id){
         accountService.delete(id);
     }
     /*

@@ -64,7 +64,7 @@ public class AccountService {
                 account.addRole(role.get());
             }
         }
-        accountRepository.save(account);
+        var dude = accountRepository.save(account);
 
         return account;
     }
